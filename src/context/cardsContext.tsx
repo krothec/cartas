@@ -19,8 +19,10 @@ type CardsContextType = {
 	setSelectedType?: (newType: IType) => void;
 	setSelectedClass?: (newClass: IClass) => void;
 	onDeleteCard: (id: number) => void;
-	onEditCard: (id: number) => void;
+	onEditCard: (editedCard: ICard) => void;
 	onSearchCard: (e: React.ChangeEvent<HTMLInputElement>) => void;
+	route?: string;
+	setRoute: (route: string) => void;
 };
 
 const initialValue = {
@@ -31,14 +33,15 @@ const initialValue = {
 		description: '',
 		attack: 0,
 		def: 0,
-		type: 0,
+		type: '',
 		class: '',
 		mana: 0,
 	},
 	setNewDeck: () => {},
+	setRoute: () => {},
 	setCard: () => {},
 	onDeleteCard: (id: number) => {},
-	onEditCard: (id: number) => {},
+	onEditCard: (editedCard: ICard) => {},
 	onSearchCard: (e: React.ChangeEvent<HTMLInputElement>) => {},
 };
 
@@ -48,12 +51,26 @@ export const CardsContextProvider = ({ children }: CardsContextProps) => {
 	const [selectedType, setSelectedType] = React.useState<IType>(Type[0]);
 	const [selectedClass, setSelectedClass] = React.useState<IClass>(Class[0]);
 	const [listCards, setListCards] = useState(defaultDeck);
-	const [card, setCard2] = useState(initialValue.card);
+	const [card, onSetCard] = useState(initialValue.card);
+	const [route, setRoute] = useState('');
 	const navigate = useNavigate();
 
 	const setCard = (newCard: ICard) => {
-		debugger;
-		setListCards([...listCards, newCard]);
+		let result: ICard[];
+		if (route === 'edit') {
+			debugger;
+			result = listCards.filter(card => {
+				return card.id === newCard.id;
+			});
+			let idx = listCards.indexOf(result[0]);
+			if (idx >= 0) {
+				listCards.splice(idx, 1);
+				setListCards([...listCards, newCard]);
+			}
+		} else {
+			setListCards([...listCards, newCard]);
+		}
+		setRoute('');
 		navigate('/');
 	};
 
@@ -63,7 +80,11 @@ export const CardsContextProvider = ({ children }: CardsContextProps) => {
 		setListCards(listCards.filter(i => i.id !== id));
 	};
 
-	const onEditCard = (id: number) => {};
+	const onEditCard = (editedCard: ICard) => {
+		onSetCard(editedCard);
+		setRoute('edit');
+		navigate('edit/');
+	};
 
 	const onSearchCard = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const keyword = e.target.value.toLowerCase();
@@ -91,6 +112,8 @@ export const CardsContextProvider = ({ children }: CardsContextProps) => {
 				onDeleteCard,
 				onEditCard,
 				onSearchCard,
+				route,
+				setRoute,
 			}}
 		>
 			{children}

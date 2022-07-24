@@ -1,9 +1,12 @@
 import React, { ChangeEvent } from 'react';
 
 export interface Option {
-	id: number;
 	value: string;
 	label: string;
+	color?: string;
+	width?: string;
+	padding?: string;
+	borderRadius?: string;
 }
 
 export interface BaseProps {
@@ -11,6 +14,10 @@ export interface BaseProps {
 	onChange: (event: ChangeEvent<HTMLSelectElement>) => void;
 	value: string;
 	name: string;
+	color?: string;
+	width?: string;
+	padding?: string;
+	borderRadius?: string;
 }
 
 const CustomSelect: React.FC<BaseProps> = ({
@@ -18,11 +25,23 @@ const CustomSelect: React.FC<BaseProps> = ({
 	options,
 	value,
 	name,
+	color,
+	width,
+	padding,
+	borderRadius,
 }: BaseProps) => {
 	return (
-		<select onChange={onChange} name={name}>
+		<select
+			onChange={onChange}
+			name={name}
+			style={{
+				width: `${width}`,
+				padding: `${padding}`,
+				borderRadius: `${borderRadius}`,
+			}}
+		>
 			{options.map((op: Option) => (
-				<option key={op.id.toString()} value={op.value}>
+				<option key={op.color?.toString()} value={op.value} color={op.color}>
 					{op.label}
 				</option>
 			))}

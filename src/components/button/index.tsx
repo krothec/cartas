@@ -1,7 +1,7 @@
 import React, { ButtonHTMLAttributes } from 'react';
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-	title: string;
+	title?: string;
 	color?: string;
 	height: string;
 	width: string;
@@ -12,7 +12,7 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 	margin?: string;
 	backgroundColor?: string;
 	showIcon?: boolean;
-	PhosphorIcon?: string;
+	icon?: string;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -27,7 +27,7 @@ const Button: React.FC<ButtonProps> = ({
 	margin,
 	backgroundColor,
 	showIcon,
-	PhosphorIcon,
+	icon,
 	...props
 }) => {
 	return (

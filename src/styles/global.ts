@@ -1,24 +1,23 @@
 import { createGlobalStyle } from 'styled-components';
 
 export default createGlobalStyle`
-  *{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
 
   body{
-    background: ${props => props.theme.colors.background};
-    color: ${props => props.theme.colors.primaryText};
-    font: 400 1rem Lato, sans-serif;
+    background: ${props => props.theme.colors.light};
+    color: ${props => props.theme.colors.primaryDark};
+    font-family: ${props => props.theme.fonts.font};
+    min-height: 100vh;
+    margin: auto;
+	  max-width: 1280px;
+    padding-bottom: 3rem;
   }
 
   .main{
     display: flex;
     flex-direction: row;
     margin: auto;
-    padding: 2.4rem;
     justify-content: center;
+
   }
 
 `;

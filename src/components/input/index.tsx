@@ -31,32 +31,20 @@ const Input: React.FC<InputProps> = ({
 	onChange,
 }) => {
 	return (
-		<div>
-			<p
-				style={{
-					fontSize: '14px',
-					color: '#666666',
-					marginBottom: '8px',
-				}}
-			>
-				{title}
-			</p>
-			<input
-				placeholder={placeholder}
-				type={type}
-				value={value}
-				name={name}
-				onChange={onChange}
-				style={{
-					width,
-					height,
-					border,
-					borderRadius: radius,
-					padding,
-				}}
-			></input>
-			<p style={{ fontSize: '14px', color: '#666666' }}>{subtitle}</p>
-		</div>
+		<input
+			placeholder={placeholder}
+			type={type}
+			value={value}
+			name={name}
+			onChange={onChange}
+			style={{
+				width,
+				height,
+				border,
+				borderRadius: radius,
+				padding,
+			}}
+		></input>
 	);
 };
 export default Input;

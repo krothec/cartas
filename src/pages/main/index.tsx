@@ -1,51 +1,50 @@
 import { useContext } from 'react';
-import FlashOnIcon from '@mui/icons-material/FlashOn';
-import ShieldIcon from '@mui/icons-material/Shield';
-import FlareIcon from '@mui/icons-material/Flare';
 import { CardsContext } from '../../context/cardsContext';
 import CustomCard from '../../components/card';
-import Button from '../../components/button';
 import { BoxCard, InLineButtons, Div } from './style';
+import Header from '../header';
+import IconButton from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+import { Edit } from '@mui/icons-material';
+import { Route, Routes } from 'react-router-dom';
 
 const Main: React.FC = () => {
 	const context = useContext(CardsContext);
 
 	return (
 		<>
-			<h1>Deck inicial</h1>
-			<h2>
-				{' '}
-				Legenda: <br />
-				<FlashOnIcon /> Ataque
-				<br />
-				<ShieldIcon /> Defesa
-				<br />
-				<FlareIcon /> Custo de mana
-				<br />
-			</h2>
+			<Header />
 			<Div>
 				{context.listCards.map(card => (
 					<BoxCard>
 						<CustomCard card={card} key={card.id.toString()} />
 						<InLineButtons>
-							<Button
-								title="Excluir"
-								height="45px"
-								width="50px"
+							<IconButton
+								className="actionButton"
+								aria-label="Editar card"
+								color="info"
+								onClick={() => context.onEditCard(card)}
+								size="small"
+							>
+								<EditIcon />
+							</IconButton>
+							<IconButton
+								className="actionButton"
+								aria-label="Deletar card"
+								color="error"
 								onClick={() => context.onDeleteCard(card.id)}
-								className="actionButton"
-							/>
-							<Button
-								title="Editar"
-								height="45px"
-								width="50px"
-								onClick={() => context.onEditCard(card.id)}
-								className="actionButton"
-							/>
+								size="small"
+							>
+								<DeleteIcon />
+							</IconButton>
 						</InLineButtons>
 					</BoxCard>
 				))}
 			</Div>
+			<Routes>
+				<Route path="edit/" element={<Edit />} />
+			</Routes>
 		</>
 	);
 };

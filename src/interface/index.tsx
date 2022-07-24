@@ -4,7 +4,7 @@ export interface ICard {
 	description: string;
 	attack: number;
 	def: number;
-	type: number;
+	type: string;
 	class: string;
 	image?: string;
 	color?: string;
@@ -12,12 +12,12 @@ export interface ICard {
 }
 
 export interface IType {
-	id: number;
+	id: string;
 	value: string;
 	label: string;
 }
 export interface IClass {
-	id: number;
+	id: string;
 	value: string;
 	label: string;
 }
